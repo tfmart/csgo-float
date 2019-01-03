@@ -22,6 +22,20 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
         lookupButton.layer.cornerRadius = 5.0
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let pasteboardSrting = UIPasteboard.general.string {
+            if (pasteboardSrting.hasPrefix("steam://rungame/730/")) {
+                let pasteboardAlert = UIAlertController(title: "Inspect Link Detected", message: "We detected a inspect link on your copyboard. Would you like to use it?", preferredStyle: .alert)
+                pasteboardAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    self.inspectLinkTextField.text = UIPasteboard.general.string
+                    self.lookupSkin()
+                }))
+                pasteboardAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(pasteboardAlert, animated: true, completion: nil)
+            }
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -33,18 +47,19 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "skinCell", for: indexPath) as! SkinHistoryCollectionViewCell
         let skin = skinList[indexPath.row]
+        cell.tag = indexPath.row
+        if(cell.tag == indexPath.row) {
+            cell.skinImageView.load(url: URL(string: (skin.iteminfo?.imageURL)!)!)
+        }
         cell.nameLabel.text = skinModel.skinName(skin: skin)
         cell.floatLabek.text = "\(skin.iteminfo?.floatValue ?? 0.0)"
-        cell.skinImageView.load(url: URL(string: (skin.iteminfo?.imageURL)!)!)
-        //cell.layer.frame = CGRect(x: 6.0, y: CGFloat(indexPath.row) * skinCollectionView.frame.width + 20, width: skinCollectionView.frame.width - 24, height: skinCollectionView.frame.width - 24)
         cell.layer.cornerRadius = 10.0
         cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor(red:0.36, green:0.75, blue:0.87, alpha:1.0).cgColor
+        cell.styleByRarity(rarity: (skin.iteminfo?.rarity)!)
         return cell
     }
 
-    @IBAction func lookupButtonPressed(_ sender: Any) {
-        inspectLinkTextField.resignFirstResponder()
+    fileprivate func lookupSkin() {
         let endpoint: String = "https://api.csgofloat.com/?url=\(inspectLinkTextField.text ?? "")"
         skinModel.getSkin(endpoint: endpoint, callback: {(skin) -> Void in
             DispatchQueue.main.async {
@@ -62,5 +77,10 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
                 self.skinCollectionView.reloadData()
             }
         })
+    }
+    
+    @IBAction func lookupButtonPressed(_ sender: Any) {
+        inspectLinkTextField.resignFirstResponder()
+        lookupSkin()
     }
 }

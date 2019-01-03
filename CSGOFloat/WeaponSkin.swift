@@ -19,6 +19,7 @@ struct ItemInfo: Decodable {
     let weapon: String?
     let imageURL: String?
     let stattrak: Int?
+    let rarity: Int?
     
     private enum CodingKeys: String, CodingKey {
         case floatValue = "floatvalue"
@@ -26,5 +27,6 @@ struct ItemInfo: Decodable {
         case weapon = "weapon_type"
         case imageURL = "imageurl"
         case stattrak = "killeatervalue"
+        case rarity = "rarity"
     }
 }
