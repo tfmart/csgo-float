@@ -30,7 +30,7 @@ class SkinModel {
                 
             }).resume()
         } else {
-            //URL is invalid
+            print("URL is invalid")
         }
     }
     
