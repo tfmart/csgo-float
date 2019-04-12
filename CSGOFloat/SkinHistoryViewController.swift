@@ -19,6 +19,7 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //skinCollectionView.setCollectionViewLayout(AddCellAnimation(), animated: false)
         lookupButton.layer.cornerRadius = 5.0
     }
     
@@ -50,12 +51,11 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.tag = indexPath.row
         if(cell.tag == indexPath.row) {
             cell.skinImageView.load(url: URL(string: (skin.iteminfo?.imageURL)!)!)
+            cell.styleByRarity(weapon: skin)
         }
+        cell.layer.cornerRadius = 8.0
         cell.nameLabel.text = skinModel.skinName(skin: skin)
-        cell.floatLabek.text = "\(skin.iteminfo?.floatValue ?? 0.0)"
-        cell.layer.cornerRadius = 10.0
-        cell.layer.borderWidth = 1.0
-        cell.styleByRarity(rarity: (skin.iteminfo?.rarity)!)
+        cell.floatLabel.text = "\(skin.iteminfo?.floatValue ?? 0.0)"
         return cell
     }
 
@@ -68,13 +68,13 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
                 }
                 if skin.iteminfo != nil {
                     self.skinList.append(skin)
+                    self.skinList.reverse()
+                    self.skinCollectionView.reloadData()
                 } else {
                     let errorAlert = UIAlertController(title: "Error", message: skin.error, preferredStyle: .alert)
                     errorAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(errorAlert, animated: true, completion: nil)
                 }
-                self.skinList.reverse()
-                self.skinCollectionView.reloadData()
             }
         })
     }

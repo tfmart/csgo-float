@@ -10,6 +10,7 @@
 		7C07508821C73CAA0067106D /* SkinHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */; };
 		7C07508A21C7C0C70067106D /* SkinHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07508921C7C0C70067106D /* SkinHistoryCollectionViewCell.swift */; };
 		7C3F1D0621DEB1F800C52DF9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F1D0521DEB1F800C52DF9 /* Extensions.swift */; };
+		7C3F1D0821E112D000C52DF9 /* AddCellAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F1D0721E112D000C52DF9 /* AddCellAnimation.swift */; };
 		7C659BCC219363B9002FA86A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C659BCB219363B9002FA86A /* AppDelegate.swift */; };
 		7C659BD1219363B9002FA86A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C659BCF219363B9002FA86A /* Main.storyboard */; };
 		7C659BD4219363B9002FA86A /* CSGOFloat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C659BD2219363B9002FA86A /* CSGOFloat.xcdatamodeld */; };
@@ -23,6 +24,7 @@
 		7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHistoryViewController.swift; sourceTree = "<group>"; };
 		7C07508921C7C0C70067106D /* SkinHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		7C3F1D0521DEB1F800C52DF9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7C3F1D0721E112D000C52DF9 /* AddCellAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCellAnimation.swift; sourceTree = "<group>"; };
 		7C659BC8219363B9002FA86A /* CSGOFloat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSGOFloat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C659BCB219363B9002FA86A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C659BD0219363B9002FA86A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				7C659BCB219363B9002FA86A /* AppDelegate.swift */,
 				7C659BE0219373FF002FA86A /* WeaponSkin.swift */,
 				7C67BDD8219460400025E535 /* SkinModel.swift */,
+				7C3F1D0721E112D000C52DF9 /* AddCellAnimation.swift */,
 				7C659BCF219363B9002FA86A /* Main.storyboard */,
 				7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */,
 				7C3F1D0521DEB1F800C52DF9 /* Extensions.swift */,
@@ -152,6 +155,7 @@
 			files = (
 				7C07508821C73CAA0067106D /* SkinHistoryViewController.swift in Sources */,
 				7C659BD4219363B9002FA86A /* CSGOFloat.xcdatamodeld in Sources */,
+				7C3F1D0821E112D000C52DF9 /* AddCellAnimation.swift in Sources */,
 				7C3F1D0621DEB1F800C52DF9 /* Extensions.swift in Sources */,
 				7C659BE1219373FF002FA86A /* WeaponSkin.swift in Sources */,
 				7C67BDD9219460400025E535 /* SkinModel.swift in Sources */,

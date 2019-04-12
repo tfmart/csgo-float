@@ -11,6 +11,6 @@ import UIKit
 class SkinHistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var skinImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var floatLabek: UILabel!
+    @IBOutlet weak var floatLabel: UILabel!
     
 }
