@@ -44,7 +44,7 @@ extension WeaponSkin {
     
     /// Boolean value indicating whether the skin has painting applied
     func isVanilla() -> Bool {
-        guard let weaponInfo = self.iteminfo, weaponInfo.name != "-" else {
+        guard let weaponInfo = self.iteminfo, weaponInfo.name == "-" else {
             return false
         }
         return true
