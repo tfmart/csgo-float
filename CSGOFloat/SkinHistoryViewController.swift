@@ -8,28 +8,76 @@
 
 import UIKit
 
-class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SkinHistoryViewController: UIViewController {
+    
+    //MARK: - @IBOutlets
     
     @IBOutlet weak var inspectLinkTextField: UITextField!
     @IBOutlet weak var lookupButton: UIButton!
     @IBOutlet weak var skinCollectionView: UICollectionView!
     
-    let skinModel = SkinModel()
+    //MARK: - Constants and Variables
+    
+    let skinController = SkinController()
     var skinList: [WeaponSkin] = []
+    
+    //MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //skinCollectionView.setCollectionViewLayout(AddCellAnimation(), animated: false)
         lookupButton.layer.cornerRadius = 5.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        checkPasteboard()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    fileprivate func presentErrorMessage(message: String) {
+        let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    
+    func getSkinInfo() {
+        guard let inspectLink = inspectLinkTextField.text else {
+            presentErrorMessage(message: "Invalid inspect link")
+            return
+        }
+        skinController.fetchSkin(inspectLink: inspectLink) { (skin) in
+            guard skin.iteminfo != nil else {
+                if let error = skin.error {
+                    self.presentErrorMessage(message: error)
+                } else {
+                    self.presentErrorMessage(message: "Failed to fetch skin information. Please try again")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.appendNewSkin(skin: skin)
+            }
+        }
+    }
+    
+    fileprivate func appendNewSkin(skin: WeaponSkin) {
+        if !self.skinList.isEmpty {
+            self.skinList.reverse()
+        }
+        self.skinList.append(skin)
+        self.skinList.reverse()
+        self.skinCollectionView.reloadData()
+    }
+    
+    fileprivate func checkPasteboard() {
         if let pasteboardSrting = UIPasteboard.general.string {
             if (pasteboardSrting.hasPrefix("steam://rungame/730/")) {
                 let pasteboardAlert = UIAlertController(title: "Inspect Link Detected", message: "We detected a inspect link on your copyboard. Would you like to use it?", preferredStyle: .alert)
                 pasteboardAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                     self.inspectLinkTextField.text = UIPasteboard.general.string
-                    self.lookupSkin()
+                    self.getSkinInfo()
                 }))
                 pasteboardAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(pasteboardAlert, animated: true, completion: nil)
@@ -37,10 +85,17 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    //MARK: - @IBActions
     
+    @IBAction func lookupButtonPressed(_ sender: Any) {
+        inspectLinkTextField.resignFirstResponder()
+        getSkinInfo()
+    }
+}
+
+//MARK: - UICollectionView Delegate and Data Source
+
+extension SkinHistoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return skinList.count
     }
@@ -54,33 +109,8 @@ class SkinHistoryViewController: UIViewController, UICollectionViewDelegate, UIC
             cell.styleByRarity(weapon: skin)
         }
         cell.layer.cornerRadius = 8.0
-        cell.nameLabel.text = skinModel.skinName(skin: skin)
+        cell.nameLabel.text = skinController.setSkinName(skin: skin)
         cell.floatLabel.text = "\(skin.iteminfo?.floatValue ?? 0.0)"
         return cell
-    }
-
-    fileprivate func lookupSkin() {
-        let endpoint: String = "https://api.csgofloat.com/?url=\(inspectLinkTextField.text ?? "")"
-        skinModel.getSkin(endpoint: endpoint, callback: {(skin) -> Void in
-            DispatchQueue.main.async {
-                if self.skinList.isEmpty == false {
-                    self.skinList.reverse()
-                }
-                if skin.iteminfo != nil {
-                    self.skinList.append(skin)
-                    self.skinList.reverse()
-                    self.skinCollectionView.reloadData()
-                } else {
-                    let errorAlert = UIAlertController(title: "Error", message: skin.error, preferredStyle: .alert)
-                    errorAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(errorAlert, animated: true, completion: nil)
-                }
-            }
-        })
-    }
-    
-    @IBAction func lookupButtonPressed(_ sender: Any) {
-        inspectLinkTextField.resignFirstResponder()
-        lookupSkin()
     }
 }
