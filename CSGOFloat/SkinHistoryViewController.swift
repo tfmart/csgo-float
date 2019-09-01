@@ -49,8 +49,9 @@ class SkinHistoryViewController: UIViewController {
         }
         skinController.fetchSkin(inspectLink: inspectLink) { (skin) in
             guard skin.iteminfo != nil else {
-                if let error = skin.error {
-                    self.presentErrorMessage(message: error)
+                if let error = skin.code {
+                    let apiError = APIError.errorWithCode(code: error)
+                    self.presentErrorMessage(message: apiError.message)
                 } else {
                     self.presentErrorMessage(message: "Failed to fetch skin information. Please try again")
                 }
