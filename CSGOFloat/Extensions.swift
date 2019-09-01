@@ -36,13 +36,12 @@ extension UIView {
         default:
             print("Error getting skin's rarity")
         }
-        if weapon.iteminfo?.stattrak != nil {
+        if weapon.isStatTrak() {
             self.layer.borderColor = UIColor(red:0.93, green:0.59, blue:0.22, alpha:1.0).cgColor
             self.layer.borderWidth = 6.0
         }
     }
 }
-
 
 extension UIImageView {
     //Extension to download an image from a URL
