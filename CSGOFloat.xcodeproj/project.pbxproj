@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A9A43AE231B688800C152B1 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A43AD231B688800C152B1 /* APIError.swift */; };
 		7C07508821C73CAA0067106D /* SkinHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */; };
 		7C07508A21C7C0C70067106D /* SkinHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07508921C7C0C70067106D /* SkinHistoryCollectionViewCell.swift */; };
 		7C3F1D0621DEB1F800C52DF9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F1D0521DEB1F800C52DF9 /* Extensions.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A9A43AD231B688800C152B1 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHistoryViewController.swift; sourceTree = "<group>"; };
 		7C07508921C7C0C70067106D /* SkinHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		7C3F1D0521DEB1F800C52DF9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				7C659BCB219363B9002FA86A /* AppDelegate.swift */,
 				7C659BE0219373FF002FA86A /* WeaponSkin.swift */,
+				0A9A43AD231B688800C152B1 /* APIError.swift */,
 				7C67BDD8219460400025E535 /* SkinController.swift */,
 				7C659BCF219363B9002FA86A /* Main.storyboard */,
 				7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */,
@@ -156,6 +159,7 @@
 				7C3F1D0621DEB1F800C52DF9 /* Extensions.swift in Sources */,
 				7C659BE1219373FF002FA86A /* WeaponSkin.swift in Sources */,
 				7C67BDD9219460400025E535 /* SkinController.swift in Sources */,
+				0A9A43AE231B688800C152B1 /* APIError.swift in Sources */,
 				7C07508A21C7C0C70067106D /* SkinHistoryCollectionViewCell.swift in Sources */,
 				7C659BCC219363B9002FA86A /* AppDelegate.swift in Sources */,
 			);
