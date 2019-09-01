@@ -11,6 +11,7 @@ import Foundation
 class WeaponSkin: Decodable {
     let iteminfo: ItemInfo?
     let error: String?
+    let code: Int?
 }
 
 struct ItemInfo: Decodable {
