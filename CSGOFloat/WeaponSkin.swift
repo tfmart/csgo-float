@@ -35,7 +35,7 @@ struct ItemInfo: Decodable {
 
 extension WeaponSkin {
     /// Boolean value indicating whether the skin is StatTrak
-    func isStatTrak() -> Bool {
+    var isStatTrak: Bool {
         guard let weaponInfo = self.iteminfo, weaponInfo.statTrak != nil else {
             return false
         }
@@ -43,7 +43,7 @@ extension WeaponSkin {
     }
     
     /// Boolean value indicating whether the skin has painting applied
-    func isVanilla() -> Bool {
+    var isVanilla: Bool {
         guard let weaponInfo = self.iteminfo, weaponInfo.name == "-" else {
             return false
         }

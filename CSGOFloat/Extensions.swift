@@ -36,7 +36,7 @@ extension UIView {
         default:
             print("Error getting skin's rarity")
         }
-        if weapon.isStatTrak() {
+        if weapon.isStatTrak {
             self.layer.borderColor = UIColor(red:0.93, green:0.59, blue:0.22, alpha:1.0).cgColor
             self.layer.borderWidth = 6.0
         }
@@ -44,7 +44,7 @@ extension UIView {
 }
 
 extension UIImageView {
-    //Extension to download an image from a URL
+    /// Method to download an image from a URL
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {
@@ -55,5 +55,11 @@ extension UIImageView {
                 }
             }
         }
+    }
+}
+
+extension String {
+    var isInspectLink: Bool {
+        return self.hasPrefix("steam://rungame/730/")
     }
 }

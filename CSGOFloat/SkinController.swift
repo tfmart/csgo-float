@@ -49,12 +49,12 @@ class SkinController {
     */
     func setSkinName(skin: WeaponSkin) -> String {
         var name: String = ""
-        if skin.isVanilla() {
+        if skin.isVanilla {
             name = skin.iteminfo?.weapon ?? ""
         } else {
             name = "\(skin.iteminfo?.weapon ?? "") | \(skin.iteminfo?.name ?? "")"
         }
-        if skin.isStatTrak() {
+        if skin.isStatTrak {
             name = "StatTrak™ \(name)"
         }
         return name

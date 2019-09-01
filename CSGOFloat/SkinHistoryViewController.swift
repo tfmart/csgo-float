@@ -72,16 +72,14 @@ class SkinHistoryViewController: UIViewController {
     }
     
     fileprivate func checkPasteboard() {
-        if let pasteboardSrting = UIPasteboard.general.string {
-            if (pasteboardSrting.hasPrefix("steam://rungame/730/")) {
-                let pasteboardAlert = UIAlertController(title: "Inspect Link Detected", message: "We detected a inspect link on your copyboard. Would you like to use it?", preferredStyle: .alert)
-                pasteboardAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                    self.inspectLinkTextField.text = UIPasteboard.general.string
-                    self.getSkinInfo()
-                }))
-                pasteboardAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                self.present(pasteboardAlert, animated: true, completion: nil)
-            }
+        if let pasteboardSrting = UIPasteboard.general.string, pasteboardSrting.isInspectLink {
+            let pasteboardAlert = UIAlertController(title: "Inspect Link Detected", message: "We detected a inspect link on your pasteboard. Would you like to use it?", preferredStyle: .alert)
+            pasteboardAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                self.inspectLinkTextField.text = pasteboardSrting
+                self.getSkinInfo()
+            }))
+            pasteboardAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(pasteboardAlert, animated: true, completion: nil)
         }
     }
     
