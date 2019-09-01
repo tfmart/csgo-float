@@ -18,7 +18,7 @@ struct ItemInfo: Decodable {
     let name: String?
     let weapon: String?
     let imageURL: String?
-    let stattrak: Int?
+    let statTrak: Int?
     let rarity: Int?
     
     private enum CodingKeys: String, CodingKey {
@@ -26,7 +26,27 @@ struct ItemInfo: Decodable {
         case name = "item_name"
         case weapon = "weapon_type"
         case imageURL = "imageurl"
-        case stattrak = "killeatervalue"
+        case statTrak = "killeatervalue"
         case rarity = "rarity"
+    }
+}
+
+// MARK: - Extension
+
+extension WeaponSkin {
+    /// Boolean value indicating whether the skin is StatTrak
+    func isStatTrak() -> Bool {
+        guard let weaponInfo = self.iteminfo, weaponInfo.statTrak != nil else {
+            return false
+        }
+        return true
+    }
+    
+    /// Boolean value indicating whether the skin has painting applied
+    func isVanilla() -> Bool {
+        guard let weaponInfo = self.iteminfo, weaponInfo.name != "-" else {
+            return false
+        }
+        return true
     }
 }
