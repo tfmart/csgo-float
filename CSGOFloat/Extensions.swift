@@ -8,10 +8,11 @@
 
 import Foundation
 import UIKit
+import SWGOFloat
 
 extension UIView {
-    func styleByRarity(weapon: WeaponSkin){
-        switch weapon.iteminfo?.rarity {
+    func styleByRarity(weapon: Skin){
+        switch weapon.itemInfo?.rarity {
         case 1:
             //Consumer Grade
             self.layer.backgroundColor = UIColor(red:0.67, green:0.76, blue:0.84, alpha:1.0).cgColor

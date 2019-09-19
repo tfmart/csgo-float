@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A14D7702320A80100309380 /* SWGOFloat in Frameworks */ = {isa = PBXBuildFile; productRef = 0A14D76F2320A80100309380 /* SWGOFloat */; };
 		0A9A43AE231B688800C152B1 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A43AD231B688800C152B1 /* APIError.swift */; };
 		7C07508821C73CAA0067106D /* SkinHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07508721C73CAA0067106D /* SkinHistoryViewController.swift */; };
 		7C07508A21C7C0C70067106D /* SkinHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07508921C7C0C70067106D /* SkinHistoryCollectionViewCell.swift */; };
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A14D7702320A80100309380 /* SWGOFloat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +100,9 @@
 			dependencies = (
 			);
 			name = CSGOFloat;
+			packageProductDependencies = (
+				0A14D76F2320A80100309380 /* SWGOFloat */,
+			);
 			productName = CSGOFloat;
 			productReference = 7C659BC8219363B9002FA86A /* CSGOFloat.app */;
 			productType = "com.apple.product-type.application";
@@ -127,6 +132,9 @@
 				Base,
 			);
 			mainGroup = 7C659BBF219363B9002FA86A;
+			packageReferences = (
+				0A14D76E2320A80100309380 /* XCRemoteSwiftPackageReference "SWGOFloat" */,
+			);
 			productRefGroup = 7C659BC9219363B9002FA86A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -361,6 +369,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0A14D76E2320A80100309380 /* XCRemoteSwiftPackageReference "SWGOFloat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tfmart/SWGOFloat.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0A14D76F2320A80100309380 /* SWGOFloat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A14D76E2320A80100309380 /* XCRemoteSwiftPackageReference "SWGOFloat" */;
+			productName = SWGOFloat;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7C659BD2219363B9002FA86A /* CSGOFloat.xcdatamodeld */ = {

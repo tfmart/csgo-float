@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWGOFloat
 
 class SkinHistoryViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class SkinHistoryViewController: UIViewController {
     //MARK: - Constants and Variables
     
     let skinController = SkinController()
-    var skinList: [WeaponSkin] = []
+    var skinList: [Skin] = []
     
     //MARK: - Methods
     
@@ -47,23 +48,20 @@ class SkinHistoryViewController: UIViewController {
             presentErrorMessage(message: "Invalid inspect link")
             return
         }
-        skinController.fetchSkin(inspectLink: inspectLink) { (skin) in
-            guard skin.iteminfo != nil else {
-                if let error = skin.code {
-                    let apiError = APIError.errorWithCode(code: error)
-                    self.presentErrorMessage(message: apiError.message)
-                } else {
-                    self.presentErrorMessage(message: "Failed to fetch skin information. Please try again")
+        let controller = SWGORequester(inspectLink: inspectLink)
+        controller.getWeaponInfo { result in
+            switch result {
+            case .success(let skin):
+                DispatchQueue.main.async {
+                    self.appendNewSkin(skin: skin)
                 }
-                return
-            }
-            DispatchQueue.main.async {
-                self.appendNewSkin(skin: skin)
+            case .failure(let error):
+                self.presentErrorMessage(message: error.message)
             }
         }
     }
     
-    fileprivate func appendNewSkin(skin: WeaponSkin) {
+    fileprivate func appendNewSkin(skin: Skin) {
         if !self.skinList.isEmpty {
             self.skinList.reverse()
         }
@@ -104,12 +102,12 @@ extension SkinHistoryViewController: UICollectionViewDelegate, UICollectionViewD
         let skin = skinList[indexPath.row]
         cell.tag = indexPath.row
         if(cell.tag == indexPath.row) {
-            cell.skinImageView.load(url: URL(string: (skin.iteminfo?.imageURL)!)!)
+            cell.skinImageView.load(url: URL(string: (skin.itemInfo?.imageURL)!)!)
             cell.styleByRarity(weapon: skin)
         }
         cell.layer.cornerRadius = 8.0
-        cell.nameLabel.text = skinController.setSkinName(skin: skin)
-        cell.floatLabel.text = "\(skin.iteminfo?.floatValue ?? 0.0)"
+        cell.nameLabel.text = skin.itemInfo?.fullItemName
+        cell.floatLabel.text = "\(skin.itemInfo?.floatValue ?? 0.0)"
         return cell
     }
 }
