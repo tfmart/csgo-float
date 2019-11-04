@@ -19,7 +19,6 @@ class SkinHistoryViewController: UIViewController {
     
     //MARK: - Constants and Variables
     
-    let skinController = SkinController()
     var skinList: [Skin] = []
     
     //MARK: - Methods
@@ -48,17 +47,17 @@ class SkinHistoryViewController: UIViewController {
             presentErrorMessage(message: "Invalid inspect link")
             return
         }
-        let controller = SWGORequester(inspectLink: inspectLink)
-        controller.getWeaponInfo { result in
-            switch result {
-            case .success(let skin):
-                DispatchQueue.main.async {
-                    self.appendNewSkin(skin: skin)
-                }
-            case .failure(let error):
-                self.presentErrorMessage(message: error.message)
+        let configuration = SWGOConfiguration(inspectLink: inspectLink)
+        let requester = SWGORequester(configuration: configuration) { (skin, error) in
+            guard let skin = skin else {
+                self.presentErrorMessage(message: error?.message ?? ApiError.unknownError.message)
+                return
+            }
+            DispatchQueue.main.async {
+                self.appendNewSkin(skin: skin)
             }
         }
+        requester.start()
     }
     
     fileprivate func appendNewSkin(skin: Skin) {
@@ -102,7 +101,10 @@ extension SkinHistoryViewController: UICollectionViewDelegate, UICollectionViewD
         let skin = skinList[indexPath.row]
         cell.tag = indexPath.row
         if(cell.tag == indexPath.row) {
-            cell.skinImageView.load(url: URL(string: (skin.itemInfo?.imageURL)!)!)
+            if let imageLink = skin.itemInfo?.imageURL, let imageURL = URL(string: imageLink) {
+                cell.skinImageView.load(url: imageURL)
+            }
+            
             cell.styleByRarity(weapon: skin)
         }
         cell.layer.cornerRadius = 8.0
